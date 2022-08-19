@@ -1,6 +1,10 @@
 package com.bank.dao;
 
+import java.sql.Statement;
+
 public class AccountDao {
+	
+	private static Statement stmt;
 	
 	public double getBalance(long accountNumber) {
 		//get acc bal from db
@@ -22,5 +26,9 @@ public class AccountDao {
 		return;
 	}
 	//private double getBalanceDb(long accountNumber)
-	
+
+	public void setStmt(Statement stmt) {
+		AccountDao.stmt = stmt;
+	}
+
 }

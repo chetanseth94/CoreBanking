@@ -1,8 +1,12 @@
 package com.bank.dao;
 
+import java.sql.Statement;
+
 import com.bank.model.User;
 
 public class UserDao {
+	
+	private static Statement stmt;
 
 	public User getUserDetails(long accountNumber) {
 		// fetch user details
@@ -14,5 +18,8 @@ public class UserDao {
 		return;
 	}
 	
+	public void setStmt(Statement stmt) {
+		UserDao.stmt = stmt;
+	}
 	
 }
