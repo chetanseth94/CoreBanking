@@ -6,6 +6,11 @@ public class AccountDao {
 	
 	private static Statement stmt;
 	
+	public long createAccountNumber() {
+		//
+		return 0;
+	}
+	
 	public double getBalance(long accountNumber) {
 		//get acc bal from db
 		return 0;

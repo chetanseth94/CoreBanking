@@ -6,6 +6,8 @@ public class AccountService {
 
 	public long generateAccountNumber() {
 		// generate ac with zero balance
+		AccountDao accountDao = new AccountDao();
+		accountDao.createAccountNumber();
 		return 0;
 	}
 	
