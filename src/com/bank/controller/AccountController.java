@@ -1,15 +1,19 @@
 package com.bank.controller;
 
+import com.bank.exception.InsufficientBalance;
+import com.bank.exception.InvalidAccountException;
+import com.bank.exception.InvalidPin;
 import com.bank.model.User;
 import com.bank.service.AccountService;
 import com.bank.service.PinService;
+//import com.bank.service.PinService;
 import com.bank.service.UserService;
 
 public class AccountController {
 	
-	public long createAccount() {
+	public long createAccount(User user) {
 		UserService userService = new UserService();
-		User user = userService.createUser();
+//		User user = userService.createUser();
 		
 		AccountService accountService = new AccountService();
 		long accountNumber = accountService.generateAccountNumber();
@@ -20,31 +24,28 @@ public class AccountController {
 		return accountNumber;
 	}
 	
-	public double getAccountBalance(long accountNumber, int userPin) {
+	public double getAccountBalance(long accountNumber, int userPin) throws InvalidAccountException, InvalidPin {
 		PinService pinService = new PinService();
-		if(!pinService.authenticateUser(accountNumber, userPin)) {
-			return -1;
-		}
+		pinService.authenticateUser(accountNumber, userPin);
+		
 		AccountService accountService = new AccountService();
 		return accountService.getBalance(accountNumber);
 	}
 	
-	public double deposit(long accountNumber, double amount, int userPin) {
+	public double deposit(long accountNumber, double amount, int userPin) throws InvalidAccountException, InvalidPin {
 		PinService pinService = new PinService();
-		if(!pinService.authenticateUser(accountNumber, userPin)) {
-			return -1;
-		}
+		pinService.authenticateUser(accountNumber, userPin);
+		
 		AccountService accountService = new AccountService();
 		accountService.deposit(accountNumber, amount);
 		
 		return accountService.getBalance(accountNumber);
 	}
 	
-	public double withdraw(long accountNumber, double amount, int userPin) {
+	public double withdraw(long accountNumber, double amount, int userPin) throws InvalidAccountException, InsufficientBalance, InvalidPin {
 		PinService pinService = new PinService();
-		if(!pinService.authenticateUser(accountNumber, userPin)) {
-			return -1;
-		}
+		pinService.authenticateUser(accountNumber, userPin);
+
 		AccountService accountService = new AccountService();
 		accountService.withdraw(accountNumber, amount);
 		

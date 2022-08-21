@@ -18,7 +18,7 @@ public class AccountDao {
 	
 	public boolean accountExists(long accountNumber) {
 		//check if acc No is correct or not
-		return true;
+		return false;
 	}
 	
 	public void deposit(long accountNumber, double amount) {

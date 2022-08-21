@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.bank.model.User;
 
-public class NewUser {
+public class NewUserView {
 	
 	static Scanner scn = new Scanner(System.in);
 	
@@ -72,8 +72,8 @@ public class NewUser {
 				System.out.print("Set your 4 digit security pin: ");
 				String PIN = scn.nextLine();
 				pin = Integer.parseInt(PIN);
-				if(PIN.length() != 4) {
-					System.err.println("Enter 4 digits exactly");
+				if(PIN.length() != 4 || pin<0) {
+					System.err.println("Enter an exact 4 digit positive pin.");
 				}
 				else valid = true;
 			}

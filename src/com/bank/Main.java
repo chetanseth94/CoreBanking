@@ -6,7 +6,7 @@ import java.sql.Statement;
 import com.bank.dao.AccountDao;
 import com.bank.dao.UserDao;
 import com.bank.jdbc.DbConnection;
-import com.bank.view.Welcome;
+import com.bank.view.WelcomeView;
 
 public class Main {
 	
@@ -28,7 +28,7 @@ public class Main {
 		System.out.println();
 		
 		//Start the program
-		Welcome welcome = new Welcome();
+		WelcomeView welcome = new WelcomeView();
 		welcome.initiate();
 		
 		System.out.println();

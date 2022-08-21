@@ -2,16 +2,16 @@ package com.bank.service;
 
 import com.bank.dao.UserDao;
 import com.bank.model.User;
-import com.bank.view.NewUser;
+//import com.bank.view.NewUser;
 
 public class UserService {
 	
 	UserDao userDao;
 
-	public User createUser() {
-		NewUser user = new NewUser();
-		return user.createNewUser();
-	}
+//	public User createUser() {
+//		NewUser user = new NewUser();
+//		return user.createNewUser();
+//	}
 	
 	public void saveUser(User user) {
 		//UserDao userDao = new UserDao();
