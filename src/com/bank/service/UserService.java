@@ -1,7 +1,7 @@
 package com.bank.service;
 
 import com.bank.dao.UserDao;
-import com.bank.model.User;
+import com.bank.model.UserDetails;
 //import com.bank.view.NewUser;
 
 public class UserService {
@@ -13,13 +13,13 @@ public class UserService {
 //		return user.createNewUser();
 //	}
 	
-	public void saveUser(User user) {
+	public void saveUser(UserDetails user) {
 		//UserDao userDao = new UserDao();
 		userDao.saveUser(user);
 		return;
 	}
 	
-	public User getUser(long accountNumber) {
+	public UserDetails getUser(long accountNumber) {
 		return userDao.getUserDetails(accountNumber);
 	}
 	

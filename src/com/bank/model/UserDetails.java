@@ -2,13 +2,13 @@ package com.bank.model;
 
 import java.sql.Date;
 
-public class User {
+public class UserDetails {
 	
+	private int accountNumber;
 	private String fullName;
 	private Date dob;
 	private String address;
 	private int pin;
-	private long accountNumber;
 	
 	public String getFullName() {
 		return fullName;
@@ -34,10 +34,10 @@ public class User {
 	public void setPin(int pin) {
 		this.pin = pin;
 	}
-	public long getAccountNumber() {
+	public int getAccountNumber() {
 		return accountNumber;
 	}
-	public void setAccountNumber(long accountNumber) {
+	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 	

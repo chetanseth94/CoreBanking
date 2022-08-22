@@ -15,8 +15,9 @@ public class DbConnection {
 		String userName = "scott";
 		String password = "tiger";
 		Connection con = DriverManager.getConnection(url, userName, password);
-
-		return con.createStatement();
+		Statement stmt = con.createStatement();
+		stmt.executeQuery("alter session set nls_date_format = 'YYYY-MM-DD'");
+		return stmt;
 	}
 
 }

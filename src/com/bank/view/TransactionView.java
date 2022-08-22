@@ -3,39 +3,48 @@ package com.bank.view;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.bank.model.BalanceInputs;
+import com.bank.model.TransactionInputs;
+
 public class TransactionView {
 	
 	static Scanner scn = new Scanner(System.in);
+	TransactionInputs tInputs;
+	BalanceInputs bInputs;
 	
-	public void depositView() {
-		accountNumberInput();
-		amountInput("deposit");
+	public TransactionInputs depositView() {
+		tInputs = new TransactionInputs();
+		tInputs.setAccountNumber(accountNumberInput());
+		tInputs.setAmount(amountInput("deposit"));
 		scn.nextLine();
-		pinInput();
-		return;
+		tInputs.setPin(pinInput());
+		return tInputs;
 	}
 	
-	public void withdrawView() {
-		accountNumberInput();
-		amountInput("withdraw");
+	public TransactionInputs withdrawView() {
+		tInputs = new TransactionInputs();
+		tInputs.setAccountNumber(accountNumberInput());
+		tInputs.setAmount(amountInput("withdraw"));
 		scn.nextLine();
-		pinInput();
-		return;
+		tInputs.setPin(pinInput());
+		return tInputs;
 	}
 	
-	public void checkBalanceView() {
-		accountNumberInput();
+	public BalanceInputs checkBalanceView() {
+		bInputs = new BalanceInputs();
+		bInputs.setAccountNumber(accountNumberInput());
 		scn.nextLine();
-		pinInput();
+		bInputs.setPin(pinInput());
+		return bInputs;
 	}
 	
-	private long accountNumberInput() {
+	private int accountNumberInput() {
 		boolean valid = false;
-		long accountNumber = 0;
+		int accountNumber = 0;
 		while(!valid) {
 			try {
 				System.out.print("Enter account number: ");
-				accountNumber = scn.nextLong();
+				accountNumber = scn.nextInt();
 				valid = true;
 			} catch(InputMismatchException e) {
 				scn.nextLine();

@@ -1,9 +1,9 @@
 package com.bank.model;
 
-public class Account {
+public class BalanceInputs {
 	
 	private int accountNumber;
-	private double balance = 0;
+	private int pin = -1;
 	
 	public int getAccountNumber() {
 		return accountNumber;
@@ -11,13 +11,11 @@ public class Account {
 	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-	public double getBalance() {
-		return balance;
+	public int getPin() {
+		return pin;
 	}
-	public void setBalance(double balance) {
-		this.balance = balance;
+	public void setPin(int pin) {
+		this.pin = pin;
 	}
-	
-	
 
 }

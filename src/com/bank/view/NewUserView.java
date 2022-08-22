@@ -3,14 +3,14 @@ package com.bank.view;
 import java.sql.Date;
 import java.util.Scanner;
 
-import com.bank.model.User;
+import com.bank.model.UserDetails;
 
 public class NewUserView {
 	
 	static Scanner scn = new Scanner(System.in);
 	
-	public User createNewUser() {
-		User user = new User();
+	public UserDetails createNewUser() {
+		UserDetails user = new UserDetails();
 		user.setFullName(takeFullnameInput());
 		user.setDob(takeDOBInput());
 		user.setAddress(takeAddressInput());

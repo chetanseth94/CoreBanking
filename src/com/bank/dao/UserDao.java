@@ -1,20 +1,33 @@
 package com.bank.dao;
 
+import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.bank.model.User;
+import com.bank.model.UserDetails;
 
 public class UserDao {
 	
 	private static Statement stmt;
 
-	public User getUserDetails(long accountNumber) {
+	public UserDetails getUserDetails(long accountNumber) {
 		// fetch user details
 		return null; // return user details
 	}
 	
-	public void saveUser(User user) {
-		// save user into db
+	public void saveUser(UserDetails user) {
+		String save = 
+			"Insert into USERDETAILS (ACCOUNTNUMBER, FULLNAME, DOB, ADDRESS, PIN) VALUES("
+				+ user.getAccountNumber() + ", '"
+				+ user.getFullName() + "', '"
+				+ user.getDob() + "', '"
+				+ user.getAddress() + "', "
+				+ user.getPin() + ")"
+			;
+		try {
+			stmt.executeQuery(save);
+		} catch (SQLException e) {
+			//e.printStackTrace();
+		}
 		return;
 	}
 	

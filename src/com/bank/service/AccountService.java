@@ -1,55 +1,73 @@
 package com.bank.service;
 
+import java.sql.SQLException;
+
 import com.bank.dao.AccountDao;
 import com.bank.exception.InsufficientBalance;
 import com.bank.exception.InvalidAccountException;
 
 public class AccountService {
 
-	public long generateAccountNumber() {
-		// generate ac with zero balance
+	public int saveAccountNumber() {
+		int accountNumber = generateAccountNumber();
 		AccountDao accountDao = new AccountDao();
-		accountDao.createAccountNumber();
-		return 0;
+		boolean valid = false;
+		
+		while(!valid) {
+			try {
+				accountDao.saveAccountNumber(accountNumber);
+				valid = true;
+			} catch (SQLException e) {
+				System.out.println("Generating account number...");
+				//e.printStackTrace();
+			}
+		}
+		
+		
+		return accountNumber;
 	}
 	
-	public boolean accountExists(long accountNumber) {
-		AccountDao accountDao = new AccountDao();
-		return accountDao.accountExists(accountNumber);
-	}
+	private int generateAccountNumber() {
+		int leftLimit = 1;
+		int rightLimit = 999999999;
+		int accountNumber = 0;
+		accountNumber = leftLimit + (int) (Math.random() * (rightLimit - leftLimit));
 
-	public double getBalance(long accountNumber) throws InvalidAccountException {
-		if (accountExists(accountNumber)) {
-			AccountDao accountDao = new AccountDao();
-			return accountDao.getBalance(accountNumber);
+		return accountNumber;
+	}
+	
+//	public boolean accountExists(int accountNumber) {
+//		AccountDao accountDao = new AccountDao();
+//		return accountDao.accountExists(accountNumber);
+//	}
+
+	public double getBalance(int accountNumber) throws InvalidAccountException {
+		AccountDao accountDao = new AccountDao();
+		String balance = accountDao.getBalance(accountNumber);
+		if (balance != null) {
+			return Double.parseDouble(balance);
 		}
 		else {
 			throw new InvalidAccountException("Account does not exist.");
 		}
 	}
 
-	public void deposit(long accountNumber, double amount) throws InvalidAccountException{
-		if (accountExists(accountNumber)) {
-			AccountDao accountDao = new AccountDao();
-			accountDao.deposit(accountNumber, amount);
-		}
-		else {
-			throw new InvalidAccountException("Invalid account number.");
-		}
+	public double deposit(int accountNumber, double amount) throws InvalidAccountException{
+		double balance = getBalance(accountNumber);
+
+		AccountDao accountDao = new AccountDao();
+		accountDao.deposit(accountNumber, amount, balance);
+
+		return balance+amount;
 	}
 
-	public void withdraw(long accountNumber, double amount) throws InvalidAccountException, InsufficientBalance {
-		if (accountExists(accountNumber)) {
-			if(getBalance(accountNumber) >= amount) {
-				AccountDao accountDao = new AccountDao();
-				accountDao.withdraw(accountNumber, amount);
-			}
-			else {
-				throw new InsufficientBalance("Not enough balance.");
-			}
-		}
-		else {
-			throw new InvalidAccountException("Invalid account number");
-		}
+	public double withdraw(int accountNumber, double amount) throws InvalidAccountException, InsufficientBalance {
+		double balance = getBalance(accountNumber);
+		if(balance < amount)	throw new InsufficientBalance("Not enough balance.");
+
+		AccountDao accountDao = new AccountDao();
+		accountDao.withdraw(accountNumber, amount, balance);
+		
+		return balance-amount;
 	}
 }

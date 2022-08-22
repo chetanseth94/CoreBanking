@@ -35,12 +35,7 @@ public class Main {
 		System.out.println("*************************************");
 		System.out.println("Thank you for using banking software!");
 		System.out.println("*************************************");
-		
-//		ResultSet rs = stmt.executeQuery("select * from product");
-//		
-//		while (rs.next()) {
-//			System.out.println(rs.getString(1) + ":" + rs.getString(2) + ":" + rs.getInt(4));
-//		}
+
 	}
 
 }

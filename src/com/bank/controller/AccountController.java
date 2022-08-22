@@ -3,7 +3,7 @@ package com.bank.controller;
 import com.bank.exception.InsufficientBalance;
 import com.bank.exception.InvalidAccountException;
 import com.bank.exception.InvalidPin;
-import com.bank.model.User;
+import com.bank.model.UserDetails;
 import com.bank.service.AccountService;
 import com.bank.service.PinService;
 //import com.bank.service.PinService;
@@ -11,20 +11,19 @@ import com.bank.service.UserService;
 
 public class AccountController {
 	
-	public long createAccount(User user) {
-		UserService userService = new UserService();
-//		User user = userService.createUser();
-		
+	public int createAccount(UserDetails user) {		
 		AccountService accountService = new AccountService();
-		long accountNumber = accountService.generateAccountNumber();
+		int accountNumber = accountService.saveAccountNumber();
 		
 		user.setAccountNumber(accountNumber);
+		
+		UserService userService = new UserService();
 		userService.saveUser(user);
 		
 		return accountNumber;
 	}
 	
-	public double getAccountBalance(long accountNumber, int userPin) throws InvalidAccountException, InvalidPin {
+	public double getAccountBalance(int accountNumber, int userPin) throws InvalidAccountException, InvalidPin {
 		PinService pinService = new PinService();
 		pinService.authenticateUser(accountNumber, userPin);
 		
@@ -32,24 +31,21 @@ public class AccountController {
 		return accountService.getBalance(accountNumber);
 	}
 	
-	public double deposit(long accountNumber, double amount, int userPin) throws InvalidAccountException, InvalidPin {
+	public double deposit(int accountNumber, double amount, int userPin) throws InvalidAccountException, InvalidPin {
 		PinService pinService = new PinService();
 		pinService.authenticateUser(accountNumber, userPin);
 		
 		AccountService accountService = new AccountService();
-		accountService.deposit(accountNumber, amount);
 		
-		return accountService.getBalance(accountNumber);
+		return accountService.deposit(accountNumber, amount);
 	}
 	
-	public double withdraw(long accountNumber, double amount, int userPin) throws InvalidAccountException, InsufficientBalance, InvalidPin {
+	public double withdraw(int accountNumber, double amount, int userPin) throws InvalidAccountException, InsufficientBalance, InvalidPin {
 		PinService pinService = new PinService();
 		pinService.authenticateUser(accountNumber, userPin);
 
 		AccountService accountService = new AccountService();
-		accountService.withdraw(accountNumber, amount);
-		
-		return accountService.getBalance(accountNumber);
+		return accountService.withdraw(accountNumber, amount);
 	}
 
 }
