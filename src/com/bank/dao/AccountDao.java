@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.bank.exception.InvalidAccountException;
+
 public class AccountDao {
 	
 	private static Statement stmt;
@@ -14,7 +16,7 @@ public class AccountDao {
 		stmt.executeQuery(save);
 	}
 	
-	public String getBalance(int accountNumber) {
+	public String getBalance(int accountNumber) throws InvalidAccountException {
 		try {
 			ResultSet rs = stmt.executeQuery("SELECT balance FROM account WHERE ACCOUNTNUMBER = "
 					+ accountNumber);
@@ -24,7 +26,7 @@ public class AccountDao {
 			
 		} catch (SQLException e) {
 		}
-		return null;
+		throw new InvalidAccountException("Account does not exist.");
 	}
 	
 //	public boolean accountExists(long accountNumber) {

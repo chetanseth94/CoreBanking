@@ -44,12 +44,12 @@ public class AccountService {
 	public double getBalance(int accountNumber) throws InvalidAccountException {
 		AccountDao accountDao = new AccountDao();
 		String balance = accountDao.getBalance(accountNumber);
-		if (balance != null) {
+		try {
 			return Double.parseDouble(balance);
+		} catch(Exception e) {
+			System.err.println("Some error occured.");
 		}
-		else {
-			throw new InvalidAccountException("Account does not exist.");
-		}
+		return -1D;
 	}
 
 	public double deposit(int accountNumber, double amount) throws InvalidAccountException{
