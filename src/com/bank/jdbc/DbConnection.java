@@ -19,5 +19,15 @@ public class DbConnection {
 		stmt.executeQuery("alter session set nls_date_format = 'YYYY-MM-DD'");
 		return stmt;
 	}
+	
+	private DbConnection() {
+	}
+	
+	private static DbConnection dbConnection;
+	
+	public static DbConnection getDbConnection() {
+		if(dbConnection == null)	return new DbConnection();
+		else	return dbConnection;
+	}
 
 }

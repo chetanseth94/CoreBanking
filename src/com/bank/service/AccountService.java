@@ -7,10 +7,11 @@ import com.bank.exception.InsufficientBalance;
 import com.bank.exception.InvalidAccountException;
 
 public class AccountService {
+	
+	AccountDao accountDao = AccountDao.getAccountDao();
 
 	public int saveAccountNumber() {
 		int accountNumber = generateAccountNumber();
-		AccountDao accountDao = new AccountDao();
 		boolean valid = false;
 		
 		while(!valid) {
@@ -19,11 +20,8 @@ public class AccountService {
 				valid = true;
 			} catch (SQLException e) {
 				System.out.println("Generating account number...");
-				//e.printStackTrace();
 			}
 		}
-		
-		
 		return accountNumber;
 	}
 	
@@ -35,14 +33,8 @@ public class AccountService {
 
 		return accountNumber;
 	}
-	
-//	public boolean accountExists(int accountNumber) {
-//		AccountDao accountDao = new AccountDao();
-//		return accountDao.accountExists(accountNumber);
-//	}
 
 	public double getBalance(int accountNumber) throws InvalidAccountException {
-		AccountDao accountDao = new AccountDao();
 		String balance = accountDao.getBalance(accountNumber);
 		try {
 			return Double.parseDouble(balance);
@@ -55,7 +47,6 @@ public class AccountService {
 	public double deposit(int accountNumber, double amount) throws InvalidAccountException{
 		double balance = getBalance(accountNumber);
 
-		AccountDao accountDao = new AccountDao();
 		accountDao.deposit(accountNumber, amount, balance);
 
 		return balance+amount;
@@ -65,9 +56,19 @@ public class AccountService {
 		double balance = getBalance(accountNumber);
 		if(balance < amount)	throw new InsufficientBalance("Not enough balance.");
 
-		AccountDao accountDao = new AccountDao();
 		accountDao.withdraw(accountNumber, amount, balance);
 		
 		return balance-amount;
+	}
+	
+	private AccountService() {
+		
+	}
+	
+	private static AccountService accountService;
+	
+	public static AccountService getAccountService() {
+		if(accountService == null)	return new AccountService();
+		else return accountService;
 	}
 }

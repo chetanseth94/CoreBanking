@@ -11,40 +11,35 @@ import com.bank.service.UserService;
 
 public class AccountController {
 	
+	AccountService accountService = AccountService.getAccountService();
+	PinService pinService = PinService.getPinService();
+	UserService userService = UserService.getUserService();
+	
 	public int createAccount(UserDetails user) {		
-		AccountService accountService = new AccountService();
 		int accountNumber = accountService.saveAccountNumber();
 		
 		user.setAccountNumber(accountNumber);
 		
-		UserService userService = new UserService();
 		userService.saveUser(user);
 		
 		return accountNumber;
 	}
 	
 	public double getAccountBalance(int accountNumber, int userPin) throws InvalidAccountException, InvalidPin {
-		PinService pinService = new PinService();
 		pinService.authenticateUser(accountNumber, userPin);
 		
-		AccountService accountService = new AccountService();
 		return accountService.getBalance(accountNumber);
 	}
 	
 	public double deposit(int accountNumber, double amount, int userPin) throws InvalidAccountException, InvalidPin {
-		PinService pinService = new PinService();
 		pinService.authenticateUser(accountNumber, userPin);
-		
-		AccountService accountService = new AccountService();
-		
+				
 		return accountService.deposit(accountNumber, amount);
 	}
 	
 	public double withdraw(int accountNumber, double amount, int userPin) throws InvalidAccountException, InsufficientBalance, InvalidPin {
-		PinService pinService = new PinService();
 		pinService.authenticateUser(accountNumber, userPin);
 
-		AccountService accountService = new AccountService();
 		return accountService.withdraw(accountNumber, amount);
 	}
 

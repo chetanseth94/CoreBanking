@@ -3,14 +3,12 @@ package com.bank.service;
 import com.bank.dao.UserDao;
 import com.bank.exception.InvalidAccountException;
 import com.bank.model.UserDetails;
-//import com.bank.view.NewUser;
 
 public class UserService {
 	
-	UserDao userDao;
+	UserDao userDao = UserDao.getUserDao();
 	
 	public void saveUser(UserDetails user) {
-		//UserDao userDao = new UserDao();
 		userDao.saveUser(user);
 		return;
 	}
@@ -25,7 +23,13 @@ public class UserService {
 		return -1;
 	}
 	
-	public UserService(){
-		userDao = new UserDao();
+	private UserService(){
+	}
+	
+	private static UserService userService;
+	
+	public static UserService getUserService() {
+		if(userService == null)	return new UserService();
+		else	return userService;
 	}
 }

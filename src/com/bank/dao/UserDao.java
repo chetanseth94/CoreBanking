@@ -33,13 +33,23 @@ public class UserDao {
 		try {
 			stmt.executeQuery(save);
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			System.err.println("Some error occured.");
 		}
 		return;
 	}
 	
 	public void setStmt(Statement stmt) {
 		UserDao.stmt = stmt;
+	}
+	
+	private UserDao() {
+	}
+	
+	private static UserDao userDao;
+	
+	public static UserDao getUserDao() {
+		if(userDao == null)	return new UserDao();
+		else	return userDao;
 	}
 	
 }

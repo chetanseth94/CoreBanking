@@ -29,11 +29,6 @@ public class AccountDao {
 		throw new InvalidAccountException("Account does not exist.");
 	}
 	
-//	public boolean accountExists(long accountNumber) {
-//		//check if acc No is correct or not
-//		return true;
-//	}
-	
 	public void deposit(long accountNumber, double amount, double balance) {
 		double updatedBalance = amount + balance;
 		String deposit = "UPDATE account SET balance = " 
@@ -59,6 +54,17 @@ public class AccountDao {
 
 	public void setStmt(Statement stmt) {
 		AccountDao.stmt = stmt;
+	}
+	
+	private AccountDao() {
+		
+	}
+	
+	private static AccountDao accountDao;
+	
+	public static AccountDao getAccountDao() {
+		if(accountDao == null)	return new AccountDao();
+		else return accountDao;
 	}
 
 }

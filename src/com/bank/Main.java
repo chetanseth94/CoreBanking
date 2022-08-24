@@ -13,13 +13,13 @@ public class Main {
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		
 		//Make connection to the database
-		DbConnection dbConnection = new DbConnection();
+		DbConnection dbConnection = DbConnection.getDbConnection();
 		Statement stmt = dbConnection.generateStatement();
 		
 		//Initiate the database connection
-		AccountDao accountDao = new AccountDao();
+		AccountDao accountDao = AccountDao.getAccountDao();
 		accountDao.setStmt(stmt);
-		UserDao userDao = new UserDao();
+		UserDao userDao = UserDao.getUserDao();
 		userDao.setStmt(stmt);
 		
 		System.out.println("****************************");
